@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">Windows Terminal Sağ Tık Menüsü</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --background-light: #f8f9fa;
+            --background-dark: #343a40;
+            --text-light: #212529;
+            --text-dark: #f8f9fa;
+            --card-bg-light: #ffffff;
+            --card-bg-dark: #495057;
+            --border-color: #dee2e6;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-light);
+            transition: background-color 0.3s, color 0.3s;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        body.dark-mode {
+            background-color: var(--background-dark);
+            color: var(--text-dark);
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            margin-top: 50px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-weight: 600;
+            font-size: 2.5em;
+            margin: 0;
+        }
+
+        .header p {
+            color: var(--secondary-color);
+            margin-top: 10px;
+        }
+
+        .card {
+            background-color: var(--card-bg-light);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 8px 24px var(--shadow-color);
+            transition: background-color 0.3s;
+        }
+
+        body.dark-mode .card {
+            background-color: var(--card-bg-dark);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .download-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1em;
+            margin-top: 20px;
+            transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
+        }
+
+        .download-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 123, 255, 0.3);
+        }
+
+        .features-list {
+            margin-top: 30px;
+            padding-left: 20px;
+        }
+
+        .features-list li {
+            margin-bottom: 10px;
+            position: relative;
+            list-style: none;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            color: var(--primary-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
+        .language-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .language-switcher select {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: var(--card-bg-light);
+            color: var(--text-light);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.dark-mode .language-switcher select {
+            background-color: var(--card-bg-dark);
+            color: var(--text-dark);
+            border-color: #666;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--card-bg-light);
+            border: 1px solid var(--border-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .theme-toggle svg {
+            fill: var(--text-light);
+            transition: fill 0.3s;
+        }
+
+        body.dark-mode .theme-toggle {
+            background-color: var(--card-bg-dark);
+            border-color: #666;
+        }
+
+        body.dark-mode .theme-toggle svg {
+            fill: var(--text-dark);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="language-switcher">
+        <select id="languageSelect">
+            <option value="tr">Türkçe</option>
+            <option value="en">English</option>
+            <option value="de">Deutsch</option>
+            <option value="es">Español</option>
+        </select>
+    </div>
+
+    <div class="theme-toggle" id="themeToggle">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8A8 8 0 0 1 12 20zM12 4a8 8 0 0 0-8 8c0 4.418 3.582 8 8 8V4z"/>
+        </svg>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1 id="mainHeading">Windows Terminal Sağ Tık Menüsü</h1>
+            <p id="subHeading">İndirin ve Sağ Tık Menünüze Hızlı Erişim Ekleyin.</p>
+        </div>
+
+        <div class="card">
+            <p id="description">
+                Bu küçük araç, **Windows 11'de bulunan "Terminalde Aç" seçeneğini** Windows 10'daki sağ tık menünüze ekler. Geliştiriciler ve sistem yöneticileri için iş akışını hızlandıran bu kullanışlı özellik, artık Windows 10'da da sizinle.
+            </p>
+            <ul class="features-list" id="featuresList">
+                <li>Kolay Kurulum</li>
+                <li>Hızlı Erişim</li>
+                <li>Hem CMD hem de Powershell Desteği</li>
+                <li>Windows 10 için Windows 11 Terminal Özelliği</li>
+            </ul>
+            <a href="OpenInTerminalBack_V1.0.exe" class="download-button" id="downloadButton" download>Programı İndir</a>
+        </div>
+    </div>
+
+    <script>
+        const translations = {
+            tr: {
+                title: 'Windows Terminal Sağ Tık Menüsü',
+                subtitle: 'İndirin ve Sağ Tık Menünüze Hızlı Erişim Ekleyin.',
+                description: 'Bu küçük araç, **Windows 11\'de bulunan "Terminalde Aç" seçeneğini** Windows 10\'daki sağ tık menünüze ekler. Geliştiriciler ve sistem yöneticileri için iş akışını hızlandıran bu kullanışlı özellik, artık Windows 10\'da da sizinle.',
+                features: ['Kolay Kurulum', 'Hızlı Erişim', 'Hem CMD hem de Powershell Desteği', 'Windows 10 için Windows 11 Terminal Özelliği'],
+                download: 'Programı İndir'
+            },
+            en: {
+                title: 'Windows Terminal Context Menu',
+                subtitle: 'Download and Add Quick Access to Your Context Menu.',
+                description: 'This small utility brings the **"Open in Terminal" option from Windows 11** to your Windows 10 right-click context menu. It\'s a handy feature that speeds up the workflow for developers and system administrators.',
+                features: ['Easy Installation', 'Quick Access', 'Both CMD and Powershell Support', 'Adds Windows 11 Terminal Feature to Windows 10'],
+                download: 'Download Program'
+            },
+            de: {
+                title: 'Windows Terminal Kontextmenü',
+                subtitle: 'Herunterladen und schnellen Zugriff zu Ihrem Kontextmenü hinzufügen.',
+                description: 'Dieses kleine Dienstprogramm bringt die **"Im Terminal öffnen"-Option von Windows 11** in Ihr Windows 10-Rechtsklick-Kontextmenü. Es ist eine nützliche Funktion, die den Arbeitsablauf für Entwickler und Systemadministratoren beschleunigt.',
+                features: ['Einfache Installation', 'Schneller Zugriff', 'Unterstützung für CMD und Powershell', 'Fügt Windows 11 Terminal-Funktion zu Windows 10 hinzu'],
+                download: 'Programm herunterladen'
+            },
+            es: {
+                title: 'Menú contextual de Windows Terminal',
+                subtitle: 'Descargue y agregue acceso rápido a su menú contextual.',
+                description: 'Esta pequeña utilidad trae la **opción "Abrir en Terminal" de Windows 11** a su menú contextual con el botón derecho en Windows 10. Es una característica útil que acelera el flujo de trabajo para desarrolladores y administradores de sistemas.',
+                features: ['Fácil instalación', 'Acceso rápido', 'Compatibilidad con CMD y Powershell', 'Agrega la función de Terminal de Windows 11 a Windows 10'],
+                download: 'Descargar programa'
+            }
+        };
+
+        const elements = {
+            pageTitle: document.getElementById('pageTitle'),
+            mainHeading: document.getElementById('mainHeading'),
+            subHeading: document.getElementById('subHeading'),
+            description: document.getElementById('description'),
+            featuresList: document.getElementById('featuresList'),
+            downloadButton: document.getElementById('downloadButton'),
+            languageSelect: document.getElementById('languageSelect'),
+            themeToggle: document.getElementById('themeToggle')
+        };
+
+        const updateContent = (lang) => {
+            const t = translations[lang];
+            elements.pageTitle.textContent = t.title;
+            elements.mainHeading.textContent = t.title;
+            elements.subHeading.textContent = t.subtitle;
+            elements.description.innerHTML = t.description; // innerHTML to render bold text
+            elements.downloadButton.textContent = t.download;
+
+            elements.featuresList.innerHTML = '';
+            t.features.forEach(feature => {
+                const li = document.createElement('li');
+                li.textContent = feature;
+                elements.featuresList.appendChild(li);
+            });
+        };
+
+        const toggleTheme = () => {
+            document.body.classList.toggle('dark-mode');
+        };
+
+        const loadSavedSettings = () => {
+            const savedLang = localStorage.getItem('lang') || 'tr';
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            elements.languageSelect.value = savedLang;
+            updateContent(savedLang);
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+            }
+        };
+
+        elements.languageSelect.addEventListener('change', (e) => {
+            const lang = e.target.value;
+            localStorage.setItem('lang', lang);
+            updateContent(lang);
+        });
+
+        elements.themeToggle.addEventListener('click', () => {
+            toggleTheme();
+            const currentTheme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+            localStorage.setItem('theme', currentTheme);
+        });
+        
+        document.addEventListener('DOMContentLoaded', loadSavedSettings);
+    </script>
+</body>
+</html>
