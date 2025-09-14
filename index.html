@@ -156,7 +156,7 @@
   </header>
 
   <div class="lang-select">
-    <label for="languageSelect">🌐 Dil Seç: </label>
+    <label for="languageSelect" id="langSelectLabel">🌐 Dil Seç: </label>
     <select id="languageSelect">
       <option value="tr">Türkçe</option>
       <option value="en">English</option>
@@ -221,6 +221,7 @@
   <script>
     const translations = {
       tr: {
+        langSelect: "🌐 Dil Seç: ",
         pageTitle: "Windows Terminal Sağ Tık Menüsü",
         mainHeading: "Windows Terminal Sağ Tık Menüsü",
         subHeading: "Windows 10 için modern \"Terminalde Aç\" özelliği.",
@@ -240,6 +241,7 @@
         faq5A: "Windows 11 zaten bu özelliğe sahiptir, ayrıca kurmanız gerekmez. Bu araç Windows 10 kullanıcıları içindir."
       },
       en: {
+        langSelect: "🌐 Select Language: ",
         pageTitle: "Windows Terminal Context Menu",
         mainHeading: "Windows Terminal Context Menu",
         subHeading: "Modern \"Open in Terminal\" feature for Windows 10.",
@@ -259,6 +261,7 @@
         faq5A: "Windows 11 already has this feature, so you do not need to install it. This tool is for Windows 10 users."
       },
       ja: {
+        langSelect: "🌐 言語選択: ",
         pageTitle: "Windowsターミナルの右クリックメニュー",
         mainHeading: "Windowsターミナルの右クリックメニュー",
         subHeading: "Windows 10用のモダンな「ターミナルで開く」機能。",
@@ -278,6 +281,7 @@
         faq5A: "Windows 11にはすでにこの機能があるため、インストールする必要はありません。このツールはWindows 10ユーザー向けです。"
       },
       de: {
+        langSelect: "🌐 Sprache auswählen: ",
         pageTitle: "Windows Terminal Kontextmenü",
         mainHeading: "Windows Terminal Kontextmenü",
         subHeading: "Moderne \"Im Terminal öffnen\"-Funktion für Windows 10.",
@@ -297,6 +301,7 @@
         faq5A: "Windows 11 verfügt bereits über diese Funktion, daher müssen Sie sie nicht installieren. Dieses Tool ist für Windows 10-Benutzer."
       },
       es: {
+        langSelect: "🌐 Seleccionar idioma: ",
         pageTitle: "Menú contextual de Windows Terminal",
         mainHeading: "Menú contextual de Windows Terminal",
         subHeading: "Función moderna de \"Abrir en Terminal\" para Windows 10.",
@@ -316,6 +321,7 @@
         faq5A: "Windows 11 ya tiene esta función, por lo que no es necesario instalarla. Esta herramienta es para usuarios de Windows 10."
       },
       zh: {
+        langSelect: "🌐 选择语言: ",
         pageTitle: "Windows Terminal 右键菜单",
         mainHeading: "Windows Terminal 右键菜单",
         subHeading: "适用于 Windows 10 的现代“在终端中打开”功能。",
@@ -335,6 +341,7 @@
         faq5A: "Windows 11 已经有这个功能，因此无需安装。此工具适用于 Windows 10 用户。"
       },
       ru: {
+        langSelect: "🌐 Выберите язык: ",
         pageTitle: "Контекстное меню Windows Terminal",
         mainHeading: "Контекстное меню Windows Terminal",
         subHeading: "Современная функция \"Открыть в терминале\" для Windows 10.",
@@ -357,6 +364,7 @@
 
     const langSelect = document.getElementById("languageSelect");
     const elements = {
+      langSelectLabel: document.getElementById("langSelectLabel"),
       pageTitle: document.getElementById("pageTitle"),
       mainHeading: document.getElementById("mainHeading"),
       subHeading: document.getElementById("subHeading"),
@@ -378,6 +386,7 @@
 
     function updateLanguage(lang) {
       const t = translations[lang];
+      elements.langSelectLabel.innerText = t.langSelect;
       elements.pageTitle.innerText = t.pageTitle;
       elements.mainHeading.innerText = t.mainHeading;
       elements.subHeading.innerText = t.subHeading;
