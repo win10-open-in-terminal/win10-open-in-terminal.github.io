@@ -1,294 +1,410 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="pageTitle">Windows Terminal Sağ Tık Menüsü</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">Windows Terminal Sağ Tık Menüsü</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
-        :root {
-            --primary-color: #007bff;
-            --secondary-color: #6c757d;
-            --background-light: #f8f9fa;
-            --background-dark: #343a40;
-            --text-light: #212529;
-            --text-dark: #f8f9fa;
-            --card-bg-light: #ffffff;
-            --card-bg-dark: #495057;
-            --border-color: #dee2e6;
-            --shadow-color: rgba(0, 0, 0, 0.1);
-        }
+    :root {
+      --primary: #3b82f6;
+      --secondary: #0ea5e9;
+      --background: #0f172a;
+      --text: #e2e8f0;
+      --card-bg: rgba(255, 255, 255, 0.08);
+      --border: rgba(255, 255, 255, 0.1);
+    }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--background-light);
-            color: var(--text-light);
-            transition: background-color 0.3s, color 0.3s;
-            line-height: 1.6;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--background);
+      color: var(--text);
+      margin: 0;
+      padding: 20px;
+      line-height: 1.7;
+    }
 
-        body.dark-mode {
-            background-color: var(--background-dark);
-            color: var(--text-dark);
-        }
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
 
-        .container {
-            max-width: 800px;
-            width: 100%;
-            margin-top: 50px;
-        }
+    header h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
+    header p {
+      color: #94a3b8;
+      font-size: 1.1rem;
+      margin-top: 10px;
+    }
 
-        .header h1 {
-            font-weight: 600;
-            font-size: 2.5em;
-            margin: 0;
-        }
+    .lang-select {
+      margin-top: 20px;
+      text-align: center;
+    }
 
-        .header p {
-            color: var(--secondary-color);
-            margin-top: 10px;
-        }
+    select {
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      color: var(--text);
+      font-size: 1rem;
+    }
 
-        .card {
-            background-color: var(--card-bg-light);
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 8px 24px var(--shadow-color);
-            transition: background-color 0.3s;
-        }
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 30px;
+      max-width: 800px;
+      margin: 20px auto;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
 
-        body.dark-mode .card {
-            background-color: var(--card-bg-dark);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-        }
+    .features-list {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0 30px 0;
+    }
 
-        .download-button {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1em;
-            margin-top: 20px;
-            transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
-        }
+    .features-list li {
+      margin-bottom: 12px;
+      padding-left: 28px;
+      position: relative;
+    }
 
-        .download-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 16px rgba(0, 123, 255, 0.3);
-        }
+    .features-list li::before {
+      content: "✔";
+      position: absolute;
+      left: 0;
+      color: var(--secondary);
+      font-weight: bold;
+    }
 
-        .features-list {
-            margin-top: 30px;
-            padding-left: 20px;
-        }
+    .download-button {
+      display: inline-block;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 14px 36px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
 
-        .features-list li {
-            margin-bottom: 10px;
-            position: relative;
-            list-style: none;
-        }
+    .download-button:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
+    }
 
-        .features-list li::before {
-            content: '✓';
-            color: var(--primary-color);
-            font-weight: bold;
-            display: inline-block;
-            width: 1em;
-            margin-left: -1em;
-        }
-        
-        .language-switcher {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
+    .faq {
+      margin-top: 50px;
+    }
 
-        .language-switcher select {
-            padding: 8px 12px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            background-color: var(--card-bg-light);
-            color: var(--text-light);
-            transition: background-color 0.3s, color 0.3s;
-        }
+    .faq h2 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-        body.dark-mode .language-switcher select {
-            background-color: var(--card-bg-dark);
-            color: var(--text-dark);
-            border-color: #666;
-        }
+    details {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      padding: 16px;
+      cursor: pointer;
+    }
 
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1000;
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: var(--card-bg-light);
-            border: 1px solid var(--border-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: background-color 0.3s, border-color 0.3s;
-        }
+    details summary {
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
 
-        .theme-toggle svg {
-            fill: var(--text-light);
-            transition: fill 0.3s;
-        }
+    details p {
+      margin-top: 12px;
+      color: #cbd5e1;
+    }
 
-        body.dark-mode .theme-toggle {
-            background-color: var(--card-bg-dark);
-            border-color: #666;
-        }
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #94a3b8;
+    }
 
-        body.dark-mode .theme-toggle svg {
-            fill: var(--text-dark);
-        }
-    </style>
+    footer span {
+      color: var(--secondary);
+      font-weight: 600;
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <h1 id="mainHeading">Windows Terminal Sağ Tık Menüsü</h1>
+    <p id="subHeading">Windows 10 için modern "Terminalde Aç" özelliği.</p>
+  </header>
 
-    <div class="language-switcher">
-        <select id="languageSelect">
-            <option value="tr">Türkçe</option>
-            <option value="en">English</option>
-            <option value="de">Deutsch</option>
-            <option value="es">Español</option>
-        </select>
-    </div>
+  <div class="lang-select">
+    <label for="languageSelect">🌐 Dil Seç: </label>
+    <select id="languageSelect">
+      <option value="tr">Türkçe</option>
+      <option value="en">English</option>
+      <option value="ja">日本語</option>
+      <option value="de">Deutsch</option>
+      <option value="es">Español</option>
+      <option value="zh">中文</option>
+      <option value="ru">Русский</option>
+    </select>
+  </div>
 
-    <div class="theme-toggle" id="themeToggle">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-            <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8A8 8 0 0 1 12 20zM12 4a8 8 0 0 0-8 8c0 4.418 3.582 8 8 8V4z"/>
-        </svg>
-    </div>
+  <div class="card">
+    <p id="description">
+      Bu küçük araç, <b>Windows 11'de bulunan "Terminalde Aç" seçeneğini</b> Windows 10'daki sağ tık menünüze ekler.
+    </p>
 
-    <div class="container">
-        <div class="header">
-            <h1 id="mainHeading">Windows Terminal Sağ Tık Menüsü</h1>
-            <p id="subHeading">İndirin ve Sağ Tık Menünüze Hızlı Erişim Ekleyin.</p>
-        </div>
+    <ul class="features-list" id="featuresList">
+      <li>Kurulumsuz, Taşınabilir Çalışma</li>
+      <li>Hızlı Erişim</li>
+      <li>CMD ve Powershell Desteği</li>
+      <li>Windows 11 Terminal Özelliğini Windows 10’a Getirir</li>
+    </ul>
 
-        <div class="card">
-            <p id="description">
-                Bu küçük araç, **Windows 11'de bulunan "Terminalde Aç" seçeneğini** Windows 10'daki sağ tık menünüze ekler. Geliştiriciler ve sistem yöneticileri için iş akışını hızlandıran bu kullanışlı özellik, artık Windows 10'da da sizinle.
-            </p>
-            <ul class="features-list" id="featuresList">
-                <li>Kolay Kurulum</li>
-                <li>Hızlı Erişim</li>
-                <li>Hem CMD hem de Powershell Desteği</li>
-                <li>Windows 10 için Windows 11 Terminal Özelliği</li>
-            </ul>
-            <a href="OpenInTerminalBack_V1.0.exe" class="download-button" id="downloadButton" download>Programı İndir</a>
-        </div>
-    </div>
+    <a href="OpenInTerminalBack_V1.0.exe" class="download-button" id="downloadButton" download>
+      Programı İndir
+    </a>
+  </div>
 
-    <script>
-        const translations = {
-            tr: {
-                title: 'Windows Terminal Sağ Tık Menüsü',
-                subtitle: 'İndirin ve Sağ Tık Menünüze Hızlı Erişim Ekleyin.',
-                description: 'Bu küçük araç, **Windows 11\'de bulunan "Terminalde Aç" seçeneğini** Windows 10\'daki sağ tık menünüze ekler. Geliştiriciler ve sistem yöneticileri için iş akışını hızlandıran bu kullanışlı özellik, artık Windows 10\'da da sizinle.',
-                features: ['Kolay Kurulum', 'Hızlı Erişim', 'Hem CMD hem de Powershell Desteği', 'Windows 10 için Windows 11 Terminal Özelliği'],
-                download: 'Programı İndir'
-            },
-            en: {
-                title: 'Windows Terminal Context Menu',
-                subtitle: 'Download and Add Quick Access to Your Context Menu.',
-                description: 'This small utility brings the **"Open in Terminal" option from Windows 11** to your Windows 10 right-click context menu. It\'s a handy feature that speeds up the workflow for developers and system administrators.',
-                features: ['Easy Installation', 'Quick Access', 'Both CMD and Powershell Support', 'Adds Windows 11 Terminal Feature to Windows 10'],
-                download: 'Download Program'
-            },
-            de: {
-                title: 'Windows Terminal Kontextmenü',
-                subtitle: 'Herunterladen und schnellen Zugriff zu Ihrem Kontextmenü hinzufügen.',
-                description: 'Dieses kleine Dienstprogramm bringt die **"Im Terminal öffnen"-Option von Windows 11** in Ihr Windows 10-Rechtsklick-Kontextmenü. Es ist eine nützliche Funktion, die den Arbeitsablauf für Entwickler und Systemadministratoren beschleunigt.',
-                features: ['Einfache Installation', 'Schneller Zugriff', 'Unterstützung für CMD und Powershell', 'Fügt Windows 11 Terminal-Funktion zu Windows 10 hinzu'],
-                download: 'Programm herunterladen'
-            },
-            es: {
-                title: 'Menú contextual de Windows Terminal',
-                subtitle: 'Descargue y agregue acceso rápido a su menú contextual.',
-                description: 'Esta pequeña utilidad trae la **opción "Abrir en Terminal" de Windows 11** a su menú contextual con el botón derecho en Windows 10. Es una característica útil que acelera el flujo de trabajo para desarrolladores y administradores de sistemas.',
-                features: ['Fácil instalación', 'Acceso rápido', 'Compatibilidad con CMD y Powershell', 'Agrega la función de Terminal de Windows 11 a Windows 10'],
-                download: 'Descargar programa'
-            }
-        };
+  <div class="faq">
+    <h2 id="faqTitle">Sık Sorulan Sorular</h2>
+    
+    <details>
+      <summary id="faq1Q">Bu program ne işe yarar?</summary>
+      <p id="faq1A">Windows 10’da sağ tık menünüze "Terminalde Aç" seçeneği ekler.</p>
+    </details>
 
-        const elements = {
-            pageTitle: document.getElementById('pageTitle'),
-            mainHeading: document.getElementById('mainHeading'),
-            subHeading: document.getElementById('subHeading'),
-            description: document.getElementById('description'),
-            featuresList: document.getElementById('featuresList'),
-            downloadButton: document.getElementById('downloadButton'),
-            languageSelect: document.getElementById('languageSelect'),
-            themeToggle: document.getElementById('themeToggle')
-        };
+    <details>
+      <summary id="faq2Q">Kurulumu nasıl yaparım?</summary>
+      <p id="faq2A">İndirdiğiniz .exe dosyası **kurulum gerektirmez.** Dosyayı çalıştırdığınızda özellik menüye otomatik olarak eklenecektir.</p>
+    </details>
 
-        const updateContent = (lang) => {
-            const t = translations[lang];
-            elements.pageTitle.textContent = t.title;
-            elements.mainHeading.textContent = t.title;
-            elements.subHeading.textContent = t.subtitle;
-            elements.description.innerHTML = t.description; // innerHTML to render bold text
-            elements.downloadButton.textContent = t.download;
+    <details>
+      <summary id="faq3Q">Nasıl kaldırırım?</summary>
+      <p id="faq3A">Programı tekrar çalıştırın ve içindeki **"Devre Dışı Bırak"** seçeneğini kullanın. Bu, özelliği sağ tık menünüzden kolayca kaldıracaktır.</p>
+    </details>
 
-            elements.featuresList.innerHTML = '';
-            t.features.forEach(feature => {
-                const li = document.createElement('li');
-                li.textContent = feature;
-                elements.featuresList.appendChild(li);
-            });
-        };
+    <details>
+      <summary id="faq4Q">Program güvenli mi?</summary>
+      <p id="faq4A">Evet, program güvenlidir. Sadece sağ tık menüsüne bir kayıt defteri anahtarı ekler ve sisteminizde kalıcı bir değişiklik yapmaz. Herhangi bir kişisel veri toplamaz.</p>
+    </details>
 
-        const toggleTheme = () => {
-            document.body.classList.toggle('dark-mode');
-        };
+    <details>
+      <summary id="faq5Q">Windows 11’de çalışır mı?</summary>
+      <p id="faq5A">Windows 11 zaten bu özelliğe sahiptir, ayrıca kurmanız gerekmez. Bu araç Windows 10 kullanıcıları içindir.</p>
+    </details>
+  </div>
 
-        const loadSavedSettings = () => {
-            const savedLang = localStorage.getItem('lang') || 'tr';
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            elements.languageSelect.value = savedLang;
-            updateContent(savedLang);
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-            }
-        };
+  <footer>
+    <p>Made with ❤️ by <span>Bay4lly</span></p>
+  </footer>
 
-        elements.languageSelect.addEventListener('change', (e) => {
-            const lang = e.target.value;
-            localStorage.setItem('lang', lang);
-            updateContent(lang);
-        });
+  <script>
+    const translations = {
+      tr: {
+        pageTitle: "Windows Terminal Sağ Tık Menüsü",
+        mainHeading: "Windows Terminal Sağ Tık Menüsü",
+        subHeading: "Windows 10 için modern \"Terminalde Aç\" özelliği.",
+        description: "Bu küçük araç, <b>Windows 11'de bulunan \"Terminalde Aç\" seçeneğini</b> Windows 10'daki sağ tık menünüze ekler.",
+        features: ["Kurulumsuz, Taşınabilir Çalışma", "Hızlı Erişim", "CMD ve Powershell Desteği", "Windows 11 Terminal Özelliğini Windows 10’a Getirir"],
+        download: "Programı İndir",
+        faqTitle: "Sık Sorulan Sorular",
+        faq1Q: "Bu program ne işe yarar?",
+        faq1A: "Windows 10’da sağ tık menünüze \"Terminalde Aç\" seçeneği ekler.",
+        faq2Q: "Kurulumu nasıl yaparım?",
+        faq2A: "İndirdiğiniz .exe dosyası **kurulum gerektirmez.** Dosyayı çalıştırdığınızda özellik menüye otomatik olarak eklenecektir.",
+        faq3Q: "Nasıl kaldırırım?",
+        faq3A: "Programı tekrar çalıştırın ve içindeki **\"Devre Dışı Bırak\"** seçeneğini kullanın. Bu, özelliği sağ tık menünüzden kolayca kaldıracaktır.",
+        faq4Q: "Program güvenli mi?",
+        faq4A: "Evet, program güvenlidir. Sadece sağ tık menüsüne bir kayıt defteri anahtarı ekler ve sisteminizde kalıcı bir değişiklik yapmaz. Herhangi bir kişisel veri toplamaz.",
+        faq5Q: "Windows 11’de çalışır mı?",
+        faq5A: "Windows 11 zaten bu özelliğe sahiptir, ayrıca kurmanız gerekmez. Bu araç Windows 10 kullanıcıları içindir."
+      },
+      en: {
+        pageTitle: "Windows Terminal Context Menu",
+        mainHeading: "Windows Terminal Context Menu",
+        subHeading: "Modern \"Open in Terminal\" feature for Windows 10.",
+        description: "This small tool adds the <b>\"Open in Terminal\" option from Windows 11</b> to your Windows 10 right-click menu.",
+        features: ["No Installation, Portable Operation", "Quick Access", "CMD and Powershell Support", "Brings Windows 11 Terminal Feature to Windows 10"],
+        download: "Download Program",
+        faqTitle: "Frequently Asked Questions",
+        faq1Q: "What does this program do?",
+        faq1A: "It adds the \"Open in Terminal\" option to the right-click menu in Windows 10.",
+        faq2Q: "How do I install it?",
+        faq2A: "The downloaded .exe file **requires no installation.** When you run the file, the feature will be automatically added to the menu.",
+        faq3Q: "How do I uninstall it?",
+        faq3A: "Simply run the program again and use the **\"Disable\"** option. This will easily remove the feature from your context menu.",
+        faq4Q: "Is the program safe?",
+        faq4A: "Yes, the program is safe. It only adds a registry key to the context menu and does not make any permanent changes to your system. It does not collect any personal data.",
+        faq5Q: "Does it work on Windows 11?",
+        faq5A: "Windows 11 already has this feature, so you do not need to install it. This tool is for Windows 10 users."
+      },
+      ja: {
+        pageTitle: "Windowsターミナルの右クリックメニュー",
+        mainHeading: "Windowsターミナルの右クリックメニュー",
+        subHeading: "Windows 10用のモダンな「ターミナルで開く」機能。",
+        description: "この小さなツールは、<b>Windows 11の「ターミナルで開く」オプションを</b>Windows 10の右クリックメニューに追加します。",
+        features: ["インストール不要、ポータブル", "素早いアクセス", "CMDとPowershellをサポート", "Windows 11のターミナル機能をWindows 10にもたらします"],
+        download: "プログラムをダウンロード",
+        faqTitle: "よくある質問",
+        faq1Q: "このプログラムは何をしますか？",
+        faq1A: "Windows 10の右クリックメニューに「ターミナルで開く」オプションを追加します。",
+        faq2Q: "インストール方法を教えてください。",
+        faq2A: "ダウンロードした.exeファイルは**インストール不要**です。ファイルを実行するだけで、機能がメニューに自動的に追加されます。",
+        faq3Q: "アンインストール方法は？",
+        faq3A: "プログラムを再度実行し、**「無効にする」**オプションを使用するだけです。これにより、コンテキストメニューから機能が簡単に削除されます。",
+        faq4Q: "プログラムは安全ですか？",
+        faq4A: "はい、プログラムは安全です。コンテキストメニューにレジストリキーを追加するだけで、システムに恒久的な変更を加えることはありません。個人情報は収集しません。",
+        faq5Q: "Windows 11でも動作しますか？",
+        faq5A: "Windows 11にはすでにこの機能があるため、インストールする必要はありません。このツールはWindows 10ユーザー向けです。"
+      },
+      de: {
+        pageTitle: "Windows Terminal Kontextmenü",
+        mainHeading: "Windows Terminal Kontextmenü",
+        subHeading: "Moderne \"Im Terminal öffnen\"-Funktion für Windows 10.",
+        description: "Dieses kleine Tool fügt die <b>\"Im Terminal öffnen\"-Option von Windows 11</b> zu Ihrem Windows 10-Rechtsklick-Menü hinzu.",
+        features: ["Keine Installation, portable", "Schneller Zugriff", "CMD- und Powershell-Unterstützung", "Bringt die Windows 11 Terminal-Funktion zu Windows 10"],
+        download: "Programm herunterladen",
+        faqTitle: "Häufig gestellte Fragen",
+        faq1Q: "Was macht dieses Programm?",
+        faq1A: "Es fügt die Option \"Im Terminal öffnen\" zum Rechtsklick-Menü in Windows 10 hinzu.",
+        faq2Q: "Wie installiere ich es?",
+        faq2A: "Die heruntergeladene .exe-Datei **erfordert keine Installation.** Wenn Sie die Datei ausführen, wird die Funktion automatisch zum Menü hinzugefügt.",
+        faq3Q: "Wie deinstalliere ich es?",
+        faq3A: "Führen Sie das Programm einfach erneut aus und verwenden Sie die Option **\"Deaktivieren\"**. Dadurch wird die Funktion einfach aus Ihrem Kontextmenü entfernt.",
+        faq4Q: "Ist das Programm sicher?",
+        faq4A: "Ja, das Programm ist sicher. Es fügt lediglich einen Registrierungsschlüssel zum Kontextmenü hinzu und nimmt keine dauerhaften Änderungen an Ihrem System vor. Es werden keine persönlichen Daten gesammelt.",
+        faq5Q: "Funktioniert es unter Windows 11?",
+        faq5A: "Windows 11 verfügt bereits über diese Funktion, daher müssen Sie sie nicht installieren. Dieses Tool ist für Windows 10-Benutzer."
+      },
+      es: {
+        pageTitle: "Menú contextual de Windows Terminal",
+        mainHeading: "Menú contextual de Windows Terminal",
+        subHeading: "Función moderna de \"Abrir en Terminal\" para Windows 10.",
+        description: "Esta pequeña herramienta añade la <b>opción \"Abrir en Terminal\" de Windows 11</b> al menú del clic derecho en Windows 10.",
+        features: ["Sin instalación, portable", "Acceso rápido", "Soporte para CMD y Powershell", "Trae la función de Terminal de Windows 11 a Windows 10"],
+        download: "Descargar programa",
+        faqTitle: "Preguntas frecuentes",
+        faq1Q: "¿Qué hace este programa?",
+        faq1A: "Añade la opción \"Abrir en Terminal\" al menú del clic derecho en Windows 10.",
+        faq2Q: "¿Cómo lo instalo?",
+        faq2A: "El archivo .exe descargado **no requiere instalación.** Cuando ejecute el archivo, la función se agregará automáticamente al menú.",
+        faq3Q: "¿Cómo lo desinstalo?",
+        faq3A: "Simplemente vuelva a ejecutar el programa y use la opción **\"Deshabilitar\"**. Esto eliminará fácilmente la función de su menú contextual.",
+        faq4Q: "¿Es seguro el programa?",
+        faq4A: "Sí, el programa es seguro. Solo agrega una clave de registro al menú contextual y no realiza cambios permanentes en su sistema. No recopila datos personales.",
+        faq5Q: "¿Funciona en Windows 11?",
+        faq5A: "Windows 11 ya tiene esta función, por lo que no es necesario instalarla. Esta herramienta es para usuarios de Windows 10."
+      },
+      zh: {
+        pageTitle: "Windows Terminal 右键菜单",
+        mainHeading: "Windows Terminal 右键菜单",
+        subHeading: "适用于 Windows 10 的现代“在终端中打开”功能。",
+        description: "这个小工具将 <b>Windows 11 中的“在终端中打开”选项</b>添加到您的 Windows 10 右键菜单中。",
+        features: ["无需安装，可移植", "快速访问", "支持 CMD 和 Powershell", "将 Windows 11 终端功能带到 Windows 10"],
+        download: "下载程序",
+        faqTitle: "常见问题",
+        faq1Q: "这个程序有什么用？",
+        faq1A: "它将“在终端中打开”选项添加到 Windows 10 的右键菜单中。",
+        faq2Q: "如何安装？",
+        faq2A: "下载的 .exe 文件**无需安装。** 当您运行该文件时，此功能将自动添加到菜单中。",
+        faq3Q: "如何卸载？",
+        faq3A: "只需再次运行程序并使用**“禁用”**选项。这将轻松地从您的上下文菜单中删除该功能。",
+        faq4Q: "这个程序安全吗？",
+        faq4A: "是的，该程序是安全的。它只向上下文菜单添加一个注册表项，并且不会对您的系统进行任何永久性更改。它不收集任何个人数据。",
+        faq5Q: "它可以在 Windows 11 上运行吗？",
+        faq5A: "Windows 11 已经有这个功能，因此无需安装。此工具适用于 Windows 10 用户。"
+      },
+      ru: {
+        pageTitle: "Контекстное меню Windows Terminal",
+        mainHeading: "Контекстное меню Windows Terminal",
+        subHeading: "Современная функция \"Открыть в терминале\" для Windows 10.",
+        description: "Этот небольшой инструмент добавляет <b>опцию \"Открыть в терминале\" из Windows 11</b> в контекстное меню Windows 10.",
+        features: ["Без установки, портативная", "Быстрый доступ", "Поддержка CMD и Powershell", "Переносит функцию терминала Windows 11 в Windows 10"],
+        download: "Скачать программу",
+        faqTitle: "Часто задаваемые вопросы",
+        faq1Q: "Что делает эта программа?",
+        faq1A: "Она добавляет опцию \"Открыть в терминале\" в контекстное меню Windows 10.",
+        faq2Q: "Как установить?",
+        faq2A: "Загруженный файл .exe **не требует установки.** При запуске файла функция будет автоматически добавлена в меню.",
+        faq3Q: "Как удалить?",
+        faq3A: "Просто запустите программу снова и используйте опцию **\"Отключить\"**. Это легко удалит функцию из вашего контекстного меню.",
+        faq4Q: "Программа безопасна?",
+        faq4A: "Да, программа безопасна. Она только добавляет ключ реестра в контекстное меню и не вносит никаких постоянных изменений в вашу систему. Она не собирает никаких личных данных.",
+        faq5Q: "Работает ли она на Windows 11?",
+        faq5A: "В Windows 11 эта функция уже есть, поэтому устанавливать ее не нужно. Этот инструмент предназначен для пользователей Windows 10."
+      }
+    };
 
-        elements.themeToggle.addEventListener('click', () => {
-            toggleTheme();
-            const currentTheme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
-            localStorage.setItem('theme', currentTheme);
-        });
-        
-        document.addEventListener('DOMContentLoaded', loadSavedSettings);
-    </script>
+    const langSelect = document.getElementById("languageSelect");
+    const elements = {
+      pageTitle: document.getElementById("pageTitle"),
+      mainHeading: document.getElementById("mainHeading"),
+      subHeading: document.getElementById("subHeading"),
+      description: document.getElementById("description"),
+      featuresList: document.getElementById("featuresList"),
+      downloadButton: document.getElementById("downloadButton"),
+      faqTitle: document.getElementById("faqTitle"),
+      faq1Q: document.getElementById("faq1Q"),
+      faq1A: document.getElementById("faq1A"),
+      faq2Q: document.getElementById("faq2Q"),
+      faq2A: document.getElementById("faq2A"),
+      faq3Q: document.getElementById("faq3Q"),
+      faq3A: document.getElementById("faq3A"),
+      faq4Q: document.getElementById("faq4Q"),
+      faq4A: document.getElementById("faq4A"),
+      faq5Q: document.getElementById("faq5Q"),
+      faq5A: document.getElementById("faq5A")
+    };
+
+    function updateLanguage(lang) {
+      const t = translations[lang];
+      elements.pageTitle.innerText = t.pageTitle;
+      elements.mainHeading.innerText = t.mainHeading;
+      elements.subHeading.innerText = t.subHeading;
+      elements.description.innerHTML = t.description;
+      elements.featuresList.innerHTML = t.features.map(f => `<li>${f}</li>`).join("");
+      elements.downloadButton.innerText = t.download;
+      elements.faqTitle.innerText = t.faqTitle;
+
+      elements.faq1Q.innerText = t.faq1Q;
+      elements.faq1A.innerText = t.faq1A;
+      elements.faq2Q.innerText = t.faq2Q;
+      elements.faq2A.innerText = t.faq2A;
+      elements.faq3Q.innerText = t.faq3Q;
+      elements.faq3A.innerText = t.faq3A;
+      elements.faq4Q.innerText = t.faq4Q;
+      elements.faq4A.innerText = t.faq4A;
+      elements.faq5Q.innerText = t.faq5Q;
+      elements.faq5A.innerText = t.faq5A;
+    }
+
+    langSelect.addEventListener("change", e => {
+      updateLanguage(e.target.value);
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      updateLanguage("tr");
+    });
+  </script>
 </body>
 </html>
